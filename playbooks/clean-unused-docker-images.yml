@@ -6,7 +6,7 @@
       register: deb_check
 
     - name: Start garbage collector container
-      when: deb_check.stdout.find('no packages found') == 0
+      when: deb_check.stdout.find('no packages found') != 1
       docker_container:
         name: docker-gc
         image: spotify/docker-gc
