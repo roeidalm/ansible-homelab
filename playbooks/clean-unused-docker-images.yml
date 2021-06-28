@@ -1,0 +1,5 @@
+- hosts: "*"
+  become: yes
+  tasks:
+    - name: clean unused docker images
+      shell: docker rmi $(docker images -f “dangling=true” -q)
