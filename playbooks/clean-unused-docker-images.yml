@@ -2,11 +2,13 @@
   hosts: "*"
   tasks:
     - name: Check if docker is installed
-      command: dpkg-query -l docker
-      register: deb_check
+      shell: dpkg-query -W -f='${Status}' docker | grep 'install ok installed'
+      register: is_installed
+      failed_when: no
+      changed_when: no
 
     - name: Start garbage collector container
-      when: deb_check.stdout.find('no packages found') != 1
+      when: is_installed.rc == 0
       docker_container:
         name: docker-gc
         image: spotify/docker-gc
