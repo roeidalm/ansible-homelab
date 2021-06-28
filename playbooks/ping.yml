@@ -3,3 +3,7 @@
   tasks:
     - name: First task simple ping!
       ansible.builtin.ping:
+
+    - name: Sec Task, Induce an exception to see what happens
+      ansible.builtin.ping:
+        data: crash
