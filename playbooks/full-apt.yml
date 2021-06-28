@@ -1,0 +1,12 @@
+- hosts: "*"
+  become: yes
+  tasks:
+    - name: apt-update
+      apt:
+        update_cache: yes
+        upgrade: "yes"
+
+    - name: apt-dist
+      apt:
+        update_cache: yes
+        upgrade: "dist"
