@@ -1,9 +1,9 @@
 - hosts: "*"
   become: yes
   tasks:
-    - name: Example from an Ansible Playbook
+    - name: First task simple ping!
       ansible.builtin.ping:
 
-    - name: Induce an exception to see what happens
+    - name: Sec Task, Induce an exception to see what happens
       ansible.builtin.ping:
         data: crash
