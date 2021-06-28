@@ -2,13 +2,13 @@
   hosts: "*"
   tasks:
     - name: Check if docker is installed
-      shell: dpkg-query -W -f='${Status}' docker | grep 'install ok installed'
-      register: is_installed
-      failed_when: no
-      changed_when: no
+      package:
+        name: "docker"
+        state: present
+      check_mode: true
+      register: package_check
 
     - name: Start garbage collector container
-      when: is_installed.rc == 0
       docker_container:
         name: docker-gc
         image: spotify/docker-gc
@@ -17,3 +17,4 @@
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
           - /etc:/etc:ro
+      when: package_check is succeeded
