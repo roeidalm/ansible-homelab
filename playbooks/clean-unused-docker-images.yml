@@ -12,12 +12,12 @@
       become: true
       register: image
       shell: docker image prune -f
-      changed_when: 'image.stderr != "Total reclaimed space: 0B"'
+      changed_when: 'image.stdout != "Total reclaimed space: 0B"'
       when: package_check.stdout is defined
 
     - name: Run Docker volume prune -f
       become: true
       shell: docker volume prune -f
       register: volume
-      changed_when: 'volume.stderr != "Total reclaimed space: 0B"'
+      changed_when: 'volume.stdout != "Total reclaimed space: 0B"'
       when: package_check.stdout is defined
