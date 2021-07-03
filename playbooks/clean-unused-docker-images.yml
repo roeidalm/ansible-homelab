@@ -11,4 +11,4 @@
     - name: Run Docker image prune -f
       become: true
       shell: sudo docker image prune -f
-        when: package_check is succeeded
+      when: package_check is succeeded
