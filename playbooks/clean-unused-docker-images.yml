@@ -8,13 +8,7 @@
       check_mode: true
       register: package_check
 
-    - name: Start garbage collector container
-      docker_container:
-        name: docker-gc
-        image: spotify/docker-gc
-        state: started
-        auto_remove: yes
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /etc:/etc:ro
+  - name: Run Docker prune
+    become: true
+    shell: sudo docker image prune -f
       when: package_check is succeeded
