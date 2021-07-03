@@ -1,14 +1,14 @@
 - name: Run docker image clean up
   hosts: "*"
   tasks:
-    - name: Check if docker is installed
-      package:
-        name: "docker"
-        state: present
-      check_mode: true
+    - name: Check current docker version
+      command: docker --version
       register: package_check
+      changed_when: false
+      failed_when: false
+      check_mode: no
 
     - name: Run Docker image prune -f
       become: true
       shell: sudo docker image prune -f
-      when: package_check is succeeded
+      when: package_check.stdout is defined
