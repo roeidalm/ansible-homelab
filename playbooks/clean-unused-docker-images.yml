@@ -12,3 +12,8 @@
       become: true
       shell: docker image prune -f
       when: package_check.stdout is defined
+
+    - name: Run Docker volume prune -f
+      become: true
+      shell: docker volume prune -f
+      when: package_check.stdout is defined
