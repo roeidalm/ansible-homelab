@@ -8,7 +8,7 @@
       check_mode: true
       register: package_check
 
-  - name: Run Docker prune
-    become: true
-    shell: sudo docker image prune -f
-      when: package_check is succeeded
+    - name: Run Docker image prune -f
+      become: true
+      shell: sudo docker image prune -f
+        when: package_check is succeeded
